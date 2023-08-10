@@ -1,52 +1,31 @@
-# http://www.gnu.org/software/automake
-
-Makefile.in
-/ar-lib
-/mdate-sh
-/py-compile
-/test-driver
-/ylwrap
-.deps/
-.dirstamp
-
-# http://www.gnu.org/software/autoconf
-
-autom4te.cache
-/autoscan.log
-/autoscan-*.log
-/aclocal.m4
-/compile
-/config.cache
-/config.guess
-/config.h.in
-/config.log
-/config.status
-/config.sub
-/configure
-/configure.scan
-/depcomp
-/install-sh
-/missing
-/stamp-h1
-
-# https://www.gnu.org/software/libtool/
-
-/ltmain.sh
-
-# http://www.gnu.org/software/texinfo
-
-/texinfo.tex
-
-# http://www.gnu.org/software/m4/
-
-m4/libtool.m4
-m4/ltoptions.m4
-m4/ltsugar.m4
-m4/ltversion.m4
-m4/lt~obsolete.m4
-
-# Generated Makefile
-# (meta build system like autotools,
-# can automatically generate from config.status script
-# (which is called by configure script))
-Makefile
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cifrador y Descifrador</title>
+    <style>
+        body{font-family:'Press Start 2P',cursive;background-color:#000;color:#0F0;text-align:center;margin:0;padding:0;display:flex;justify-content:center;align-items:center;min-height:100vh}h1{color:#F00;margin-bottom:20px}.glitch{position:relative;display:inline-block;margin-bottom:20px}.glitch:before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:-1px;color:#0F0;background:rgba(0,0,0,0.5);clip-path:polygon(100% 0,100% 100%,0 100%,0 0);animation:glitch-anim 2s infinite linear alternate-reverse}.glitch::after{left:1px;animation:glitch-anim2 3s infinite linear alternate-reverse}#container{width:400px;padding:20px;border:1px solid #777;border-radius:10px;background-color:#111;text-align:center;box-shadow:0 0 10px rgba(0,0,0,0.5)}label{display:block;margin-bottom:5px}input[type="text"],input[type="number"]{width:100%;padding:8px;border:1px solid #777;border-radius:4px;background-color:#222;color:#0F0;margin-bottom:10px;box-sizing:border-box}button{background-color:#F00;color:#FFF;padding:10px 20px;border:none;border-radius:4px;cursor:pointer;text-shadow:none;margin-right:10px;transition:background-color 0.2s,transform 0.2s}button:hover{background-color:#F33;transform:scale(1.05)}.time{position:absolute;top:0;right:0;padding:10px;color:#0F0;font-family:monospace}#resultadoContainer{display:none;padding:15px;border:1px solid #777;border-radius:10px;background-color:#111;color:#0F0;text-shadow:1px 1px #777;text-align:left;white-space:pre-wrap;min-height:100px;margin-top:20px;overflow:hidden}#textoResultado{max-height:200px;overflow-y:auto;word-wrap:break-word;white-space:normal}input[type="text"]:focus,input[type="number"]:focus{outline:none;box-shadow:0 0 10px #F00}#buttons{text-align:center;margin-top:10px}#copy{display:none;margin-top:10px}
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+    <script>
+        function cifrarDescifrar(c){var e=document.getElementById("texto"),r=parseInt(document.getElementById("desplazamiento").value),o=e.value,t="";for(var n=0;n<o.length;n++){var a=o.charCodeAt(n);a>=65&&a<=90?t+=c?String.fromCharCode((a-65+r)%26+65):String.fromCharCode((a-65-r+26)%26+65):a>=97&&a<=122?(t+=c?String.fromCharCode((a-97+r)%26+97):String.fromCharCode((a-97-r+26)%26+97)):t+=o[n]}var i=document.getElementById("resultadoContainer"),l=document.getElementById("textoResultado");l.textContent=t,i.style.display=t.length>0?"block":"none",document.getElementById("copy").style.display=t.length>0?"block":"none"}function copiarTexto(){var t=document.getElementById("textoResultado").textContent,e=document.createElement("textarea");e.value=t,document.body.appendChild(e),e.select(),document.execCommand("copy"),document.body.removeChild(e),alert("Texto cifrado copiado al portapapeles")}function obtenerParametros(){var t=new URLSearchParams(window.location.search),e=t.get("texto");e&&(document.getElementById("texto").value=decodeURIComponent(e),cifrarDescifrar(!1))}function mostrarHoraFecha(){var t=new Date;document.getElementById("horaFecha").textContent=t.toLocaleString()}window.onload=function(){obtenerParametros(),mostrarHoraFecha(),setInterval(mostrarHoraFecha,1e3)}
+    </script>
+</head>
+<body>
+    <div id="container">
+        <h1 class="glitch" data-text="Cifr&#97;dor y Descifrador">Cifr&#97;dor y Descifrador</h1>
+        <span id="horaFecha" class="time"></span>
+        <input type="text" id="texto" placeholder="Texto a cifrar/descifrar">
+        <input type="number" id="desplazamiento" value="3" placeholder="Desplazamiento">
+        <div id="buttons">
+            <button onclick="cifrarDescifrar(true)">Cifrar</button>
+            <button onclick="cifrarDescifrar(false)">Descifrar</button>
+        </div>
+        <div id="resultadoContainer">
+            <pre id="textoResultado" class="glitch" data-text=""></pre>
+        </div>
+        <div id="copy">
+            <button onclick="copiarTexto()">Copiar Texto Cifrado</button>
+        </div>
+    </div>
+</body>
+</html>
